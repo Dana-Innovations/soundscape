@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soundscape</title>
+    <link rel="stylesheet" href="/src/styles.css">
+</head>
+<body>
+    <div id="ui-panel">
+        <div id="panel-header">
+            <h2>Soundscape</h2>
+            <div class="header-buttons">
+                <button class="header-btn" id="shortcuts-btn" title="Keyboard Shortcuts">⌨</button>
+                <button class="header-btn" id="hide-btn" title="Hide Panel (H)">−</button>
+                <div id="shortcuts-dropdown">
+                    <div class="shortcut-row"><span class="shortcut-desc">Hide/Show UI</span><span class="shortcut-key">H</span></div>
+                    <div class="shortcut-row"><span class="shortcut-desc">Toggle Handles</span><span class="shortcut-key">R</span></div>
+                    <div class="shortcut-row"><span class="shortcut-desc">Duplicate</span><span class="shortcut-key">D</span></div>
+                    <div class="shortcut-row"><span class="shortcut-desc">Select All</span><span class="shortcut-key">A</span></div>
+                    <div class="shortcut-row"><span class="shortcut-desc">Deselect</span><span class="shortcut-key">Esc</span></div>
+                    <div class="shortcut-row"><span class="shortcut-desc">Delete</span><span class="shortcut-key">⌫</span></div>
+                    <div class="shortcut-row"><span class="shortcut-desc">Add Cone</span><span class="shortcut-key">⌘/Alt+Click</span></div>
+                    <div class="shortcut-row"><span class="shortcut-desc">Multi-select</span><span class="shortcut-key">Shift+Click</span></div>
+                    <div class="shortcut-row"><span class="shortcut-desc">Adjust Distance</span><span class="shortcut-key">Shift+Drag</span></div>
+                    <div class="shortcut-row"><span class="shortcut-desc">Undo</span><span class="shortcut-key">⌘/Ctrl+Z</span></div>
+                    <div class="shortcut-row"><span class="shortcut-desc">Redo</span><span class="shortcut-key">⌘/Ctrl+⇧+Z</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-header">Environment</div>
+        <label for="bg-image-input" class="file-upload-label">Upload Background Image</label>
+        <input type="file" id="bg-image-input" accept="image/*">
+        <div class="control-group">
+            <label style="display: flex; align-items: center; gap: 8px;">
+                <input type="checkbox" id="hide-bg" style="width: auto; margin: 0;">
+                <span>Hide Background Image</span>
+            </label>
+        </div>
+        <div class="control-group">
+            <label>Image Dimmer</label>
+            <input type="range" id="bg-dimmer" min="0" max="0.9" step="0.05" value="0">
+        </div>
+
+        <div class="btn-row">
+            <button class="btn" id="add-source">Add Source</button>
+            <button class="btn" id="clone-last">Duplicate (D)</button>
+            <button class="btn" id="clear-sources">Clear All</button>
+        </div>
+
+        <div id="cone-settings">
+            <div class="section-header" style="margin-top:0; color:#fff;">Selected <span id="selection-label">Cone</span></div>
+            <div class="section-header">Beam Geometry</div>
+            <div class="control-group">
+                <label>Beam Width <span><span id="val-spread">60</span>°</span></label>
+                <input type="range" id="spread" min="10" max="360" value="60">
+            </div>
+            <div class="control-group">
+                <label>Throw Distance <span><span id="val-dist">450</span>px</span></label>
+                <input type="range" id="distance" min="100" max="800" value="450">
+            </div>
+            <div class="section-header">Wave Dynamics</div>
+            <div class="control-group">
+                <label>Pulse Speed</label>
+                <input type="range" id="speed" min="0" max="1" value="0.3" step="0.01">
+            </div>
+            <div class="control-group">
+                <label>Wave Thickness</label>
+                <input type="range" id="wave-thickness" min="20" max="300" value="100">
+            </div>
+            <div class="section-header">Aesthetics</div>
+            <div class="control-group">
+                <label>Global Intensity</label>
+                <input type="range" id="intensity" min="0.1" max="2.0" value="1.0" step="0.1">
+            </div>
+            <div class="control-group">
+                <label>Fresnel Brightness</label>
+                <input type="range" id="fresnel-bright" min="0" max="3.0" value="1.0" step="0.1">
+            </div>
+            <div class="control-group">
+                <label>Wave Softness</label>
+                <input type="range" id="softness" min="0" max="1" value="0.2" step="0.05">
+            </div>
+            <div class="control-group">
+                <label style="display: flex; align-items: center; gap: 8px;">
+                    <input type="checkbox" id="invert-gradient" style="width: auto; margin: 0;">
+                    <span>Invert Wave Gradient</span>
+                </label>
+            </div>
+            <div class="section-header">Color</div>
+            <div class="control-group">
+                <label>Hue</label>
+                <input type="range" id="cone-hue" min="0" max="360" value="180">
+            </div>
+            <div class="control-group">
+                <label>Saturation</label>
+                <input type="range" id="cone-sat" min="0" max="100" value="100">
+            </div>
+            <div class="control-group">
+                <label>Hex Color <input type="text" id="cone-hex" value="#FF0000" maxlength="7"></label>
+            </div>
+            <div class="btn-row" style="margin-top:10px">
+                <button class="btn" id="clone-btn">Duplicate</button>
+                <button class="btn" id="delete-btn" style="background: rgba(255, 60, 60, 0.15); color: #ffaaaa; border-color: rgba(255, 60, 60, 0.3);">Delete</button>
+            </div>
+        </div>
+
+        <div class="section-header">Scene</div>
+        <div class="btn-row">
+            <button class="btn" id="save-scene">Save Scene</button>
+            <button class="btn" id="load-scene-btn">Load Scene</button>
+        </div>
+        <input type="file" id="load-scene-input" accept=".json" style="display:none;">
+
+        <div class="section-header">Export</div>
+        <div class="control-group">
+            <label>Export Resolution <span><span id="val-res-mult">1</span>x (<span id="val-res-size">0x0</span>)</span></label>
+            <input type="range" id="res-multiplier" min="1" max="4" value="1" step="1">
+        </div>
+        <div class="btn-row">
+            <button class="btn" id="record-btn">Record Video</button>
+            <button class="btn" id="download-png">Download PNG</button>
+        </div>
+        <div class="btn-row">
+            <button class="btn" id="export-sequence">Export PNG Sequence (8s)</button>
+        </div>
+        <div id="export-progress" style="display:none; margin-top:10px;">
+            <div style="font-size:10px; color:#aaa; margin-bottom:5px;">Exporting frames...</div>
+            <div style="background:rgba(255,255,255,0.1); border-radius:3px; height:6px; overflow:hidden;">
+                <div id="progress-bar" style="background:#4a9eff; height:100%; width:0%;"></div>
+            </div>
+            <div id="progress-text" style="font-size:10px; color:#888; margin-top:5px;">0 / 240</div>
+        </div>
+    </div>
+
+    <div id="selection-bar">
+        <span id="selection-count">0 selected</span>
+        <div id="selection-dots"></div>
+        <button id="select-all-btn">Select All</button>
+    </div>
+
+    <div id="undo-redo-bar">
+        <button id="undo-btn" title="Undo (Cmd/Ctrl+Z)" disabled>↶</button>
+        <button id="redo-btn" title="Redo (Cmd/Ctrl+Shift+Z)" disabled>↷</button>
+    </div>
+
+    <canvas id="canvas"></canvas>
+    <script type="module" src="/src/main.js"></script>
+</body>
+</html>
